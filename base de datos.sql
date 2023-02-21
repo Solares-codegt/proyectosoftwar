@@ -36,9 +36,54 @@ id_clientes int identity primary key,
 nombre_cliente nvarchar(60),
 apellido_cliente nvarchar(60),
 cui nvarchar(60),
+nit nvarchar(60),
 direccion nvarchar(60),
 correoelectronico nvarchar(60),
 )
+
+create procedure sp_load
+as begin
+select * from clientes
+End
+
+--crud, create, read, update, delete
+create procedure sp_create
+@nombre nvarchar(15),
+@apellido nvarchar(15),
+@cui nvarchar(15),
+@nit nvarchar(15),
+@direccion nvarchar(15),
+@correo nvarchar(15)
+as begin
+insert into clientes values (@nombre,@apellido,@cui,@nit,@direccion,@correo)
+end
+
+create procedure sd_read
+@id int
+as begin
+select*from clientes where id_clientes=@id
+end
+
+
+select * from clientes;
+create procedure sp_update
+@id int,
+@nombre nvarchar(15),
+@apellido nvarchar(15),
+@cui nvarchar(15),
+@nit nvarchar(15),
+@direccion nvarchar(15),
+@correo nvarchar(15)
+as begin
+update clientes set nombre_cliente=@nombre,apellido_cliente=@apellido,cui=@cui,nit=@nit,direccion=@direccion,correoelectronico=@correo
+where id_clientes=@id
+end
+
+create procedure sp_delete
+@id int
+as begin
+delete from clientes where id_clientes=@id
+end
 
 create table telefono_cliente(
 id_tele int identity primary key,
